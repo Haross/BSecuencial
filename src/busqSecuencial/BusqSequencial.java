@@ -39,11 +39,11 @@ public class BusqSequencial {
         if (bandera) {
             System.out.println("Busqueda desordenada");
             System.out.println("El dato " + dato + " fue encontrado en la posición " + (x+1));
-            System.out.println("El contador es "+x);
+            System.out.println("El contador es "+x + "\n");
         }else{
              System.out.println("Busqueda desordenada");
             System.out.println("El dato " + dato + " no fue encontrado ");
-            System.out.println("El contador es "+x);
+            System.out.println("El contador es "+x+ "\n");
         }
         return x;
     }
@@ -127,7 +127,7 @@ public class BusqSequencial {
     private int BusquedaOrdenA(int dato) {
         int x = 0;
         boolean bandera = false;
-        quickSort(datosA,0,datosA.length-1);
+        
         /*System.out.println("-----------------------");
          for (int i = 0; i < datosA.length; i++) {
             System.out.println(datosA[i]);
@@ -143,11 +143,11 @@ public class BusqSequencial {
         if (bandera) {
             System.out.println("Busqueda ascendentemente");
             System.out.println("El dato " + dato + " fue encontrado en la posición " + (x+1));
-             System.out.println("El contador es "+x);
+             System.out.println("El contador es "+x + "\n");
         }else{
             System.out.println("Busqueda ascendentemente");
             System.out.println("El dato " + dato + " no fue encontrado ");
-             System.out.println("El contador es "+x);
+             System.out.println("El contador es "+x+ "\n");
         }
         
         return x;
@@ -157,7 +157,7 @@ public class BusqSequencial {
         int x = 0;
         boolean bandera = false;
        
-        quickSortD(datosD, 0, datosD.length-1);
+      
         /* for (int i = 0; i < datosD.length; i++) {
             System.out.println(datosD[i]);
         }*/
@@ -172,11 +172,11 @@ public class BusqSequencial {
         if (bandera) {
             System.out.println("Busqueda descendente");
             System.out.println("El dato " + dato + " Fue encontrado en la posición " + (x+1));
-            System.out.println("El contador es "+x);
+            System.out.println("El contador es "+x+ "\n");
         }else{
             System.out.println("Busqueda descendente");
             System.out.println("El dato  " + dato + " no fue encontrado ");
-            System.out.println("El contador es "+x);
+            System.out.println("El contador es "+x+ "\n");
         }
         return x;
     }
@@ -199,11 +199,52 @@ public class BusqSequencial {
         int opc = Integer.parseInt(sc.nextLine().replaceAll(" ", ""));
         switch(opc){
             case 1:
+                  quickSortD(datosD, 0, datosD.length-1);
+                quickSort(datosA,0,datosA.length-1);
+                 System.out.println("Desordenado");
+                for (int i = 0; i < datos.length; i++) {
+                    System.out.print(datos[i]+"  ");
+                }
+                 System.out.println("\nAscendente");
+                for (int i = 0; i < datos.length; i++) {
+                    System.out.print(datosA[i]+"  ");
+                }
+                System.out.println("\nDescendente");
+                for (int i = 0; i < datos.length; i++) {
+                    System.out.print(datosD[i]+ "  ");
+                }
+                System.out.println("\n\n\nBusqueda secuencial complejidad");
+                System.out.println("Cmin = 1 \t Cmed ="+((1+datos.length)/2) + "\t Cmax = "+datos.length);
+                System.out.println("\n\n\nBusqueda binaria complejidad");
+                double auxi = Math.log(datos.length);
+                double aux = (1 + auxi/2);
+                System.out.println("Cmin = 1 \t Cmed ="+ aux + "\t Cmax = "+auxi);
+                
+                
                  System.out.println("Por favor ingrese el dato a Buscar");
                 int dato = Integer.parseInt(sc.nextLine().replaceAll(" ", ""));
-                BusquedaOrdenA(dato);                
+                
+               
+                
+                System.out.println("  ");
+                System.out.println("---------------------------------");
+                BusquedaOrdenA(dato);  
+                BusqBinariaA(dato);
+                System.out.println("  ");
+                System.out.println("---------------------------------");
                 BusquedaOrdenD(dato);
+                BusqBinariaD(dato);
+                System.out.println(" ");
+                System.out.println("---------------------------------");
                 BusquedaDesorden(dato);
+                
+                
+                
+                
+                
+                
+                
+                
                 break;
             case 2:
                 System.out.println("Universidad Politecnica de Chiapas");
@@ -228,6 +269,67 @@ public class BusqSequencial {
                 break;
         }
         
+    }
+    
+    public void BusqBinariaA(int x){
+        int izq =0, der = datosA.length-1, cen=0, cont = 0;
+        boolean bandera = false;
+        while(izq<=der && !bandera){
+            cont++;
+            cen = (izq + der) /2;
+     
+            if(x == datosA[cen]){
+                bandera = true;
+            }else{
+            
+            if(x>datosA[cen]){
+                izq = cen +1;
+            }else{
+                der = cen -1;
+                
+            }
+            }
+            
+        } 
+        System.out.println("Busqueda Binaria Ascendente");
+        if(bandera){
+            
+            System.out.println("El elemento esta en la posicion:" +cen);
+           
+        }else{
+            System.out.println("El elemento no se encontro");
+        }
+         System.out.println("El contador es "+cont);
+         System.out.println(" ");
+    }
+    public void BusqBinariaD(int x){
+        int izq =0, der = datosA.length-1, cen=0, cont = 0;
+        boolean bandera = false;
+        while(izq<=der && !bandera){
+            cont++;
+            cen = (izq + der) /2;
+            if(x == datosA[cen]){
+                bandera = true;
+            }else{
+            
+            if(x<datosA[cen]){
+                izq = cen +1;
+            }else{
+                der = cen -1;
+                
+            }
+            }
+            
+        } 
+        if(bandera){
+            System.out.println("Busqueda Binaria Descendente");
+            System.out.println("El elemento esta en la posicion:" +cen);
+           
+        }else{
+            System.out.println("El elemento no se encontro");
+        }
+         System.out.println("El contador es "+cont);
+         System.out.println(" ");
     }
     public static void main(String[] args) {
         
